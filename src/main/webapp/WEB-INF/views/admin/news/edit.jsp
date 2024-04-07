@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="/common/taglib.jsp" %>
 <c:url var="newsAPIUrl" value="/api/admin/news/post"/>
 <html>
@@ -38,7 +38,8 @@
             <div class="row">
                 <div class="col-xs-12">
                     <%--@elvariable id="model" type=""--%>
-                    <form:form class="form-horizontal" role="form" id="formSubmit" modelAttribute="model" accept-charset="utf-8">
+                    <form:form class="form-horizontal" role="form" id="formSubmit" modelAttribute="model"
+                               accept-charset="utf-8">
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right"
                                    for="thumbnail"> Ảnh bài viết </label>
@@ -51,10 +52,12 @@
                                    for="thumbnail"> Hình ảnh </label>
                             <div class="col-sm-3">
                                 <c:if test="${model.exportThumbnail == null}">
-                                    <img src="<c:url value="/template/default-image.jpg"/>" id="imgThumbnail" height="250" width="350" alt="">
+                                    <img src="<c:url value="/template/default-image.jpg"/>" id="imgThumbnail"
+                                         height="250" width="350" alt="">
                                 </c:if>
                                 <c:if test="${model.exportThumbnail != null}">
-                                    <img src="<c:url value="data:image/jpeg;base64, ${model.exportThumbnail}"/>" id="imgThumbnail" height="250" width="350" alt="">
+                                    <img src="<c:url value="data:image/jpeg;base64, ${model.exportThumbnail}"/>"
+                                         id="imgThumbnail" height="250" width="350" alt="">
                                 </c:if>
                             </div>
                         </div>
@@ -62,10 +65,18 @@
                             <label class="col-sm-3 control-label no-padding-right"
                                    for="cateCode"> Thể loại </label>
                             <div class="col-sm-9">
-                                <form:select path="cateCode" id="cateCode">
-                                    <form:option value="" label=""/>
-                                    <form:options items="${categories}"/>
-                                </form:select>
+                                <label>
+                                    <select>
+                                        <option selected></option>
+                                        <c:forEach items="${categories}" var="category">
+                                            <option value="<c:out value="${category.key}"/>"
+                                                    <c:if test="${model.category.code} == ${category.key}">
+                                                        selected
+                                                    </c:if>
+                                            ><c:out value="${category.value}"/></option>
+                                        </c:forEach>
+                                    </select>
+                                </label>
                             </div>
                         </div>
                         <div class="form-group">
@@ -139,7 +150,7 @@
         var file = $('input[name="thumbnail"]')[0].files[0];
         var formData = $("#formSubmit").serializeArray();
         $.each(formData, (i, v) => {
-            data[""+v.name+""] = v.value;
+            data["" + v.name + ""] = v.value;
         });
         data["thumbnail"] = file;
         console.log(data);
